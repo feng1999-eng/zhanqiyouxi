@@ -9,6 +9,7 @@ public class SelectLevelView : BaseView
     {
         base.OnStart();
         Find<Button>("close").onClick.AddListener(onCloseBtn);
+        Find<Button>("level/fightBtn").onClick.AddListener(onFightBtn);   
     }
 
     //关闭
@@ -36,5 +37,10 @@ public class SelectLevelView : BaseView
     public void HideLevelDes()
     {
         Find("level").SetActive(false);
+    }
+    //切换到战斗场景
+    public void onFightBtn()
+    {
+        
     }
 }
