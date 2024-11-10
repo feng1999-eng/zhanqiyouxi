@@ -5,24 +5,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-//ÊÓÍ¼ÐÅÏ¢Àà
+//ï¿½ï¿½Í¼ï¿½ï¿½Ï¢ï¿½ï¿½
 public class ViewInfo
 {
-    public string PrefabName; //ÊÓÍ¼Ô¤ÖÆÌåÃû³Æ
-    public Transform parentTf; //ËùÔÚ¸¸¼¶
-    public BaseController controller; //ÊÓÍ¼ËùÊô¿ØÖÆÆ÷
-    public int sortingOrder; //äÖÈ¾²ã¼¶
+    public string PrefabName; //ï¿½ï¿½Í¼Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Transform parentTf; //ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½
+    public BaseController controller; //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int sortingOrder; //ï¿½ï¿½È¾ï¿½ã¼¶
 }
 /// <summary>
-/// ÊÓÍ¼¹ÜÀíÆ÷
+/// ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class ViewManager
 {
-    public Transform canvasTf; //»­²¼×é¼þ
-    public Transform worldCanvasTf; //ÊÀ½ç»­²¼×é¼þ
-    Dictionary<int, IBaseView> _opens; //¿ªÆôÖÐµÄÊÓÍ¼
-    Dictionary<int, IBaseView> _viewCache; //ÊÓÍ¼»º´æ
-    Dictionary<int, ViewInfo> _views; //×¢²áµÄÊÓÍ¼ÐÅÏ¢
+    public Transform canvasTf; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Transform worldCanvasTf; //ï¿½ï¿½ï¿½ç»­ï¿½ï¿½ï¿½ï¿½ï¿½
+    Dictionary<int, IBaseView> _opens; //ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Í¼
+    Dictionary<int, IBaseView> _viewCache; //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
+    Dictionary<int, ViewInfo> _views; //×¢ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
 
     public ViewManager()
     {
@@ -32,7 +32,7 @@ public class ViewManager
         _viewCache = new Dictionary<int, IBaseView>();
         _views = new Dictionary<int, ViewInfo>();
     }
-    //×¢²áÊÓÍ¼ÐÅÏ¢
+    //×¢ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
     public void Register(int key, ViewInfo viewInfo)
     {
         if (_views.ContainsKey(key) == false)
@@ -45,7 +45,7 @@ public class ViewManager
     {
         Register((int)viewType, viewInfo);
     }
-    //ÒÆ³ýÊÓÍ¼ÐÅÏ¢
+    //ï¿½Æ³ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
     public void Unregister(int key)
     {
         if( _views.ContainsKey(key) )
@@ -53,14 +53,14 @@ public class ViewManager
             _views.Remove(key);
         }
     }
-    //ÒÆ³ýÃæ°å
+    //ï¿½Æ³ï¿½ï¿½ï¿½ï¿½
     public void RemoveView(int key)
     {
         _views.Remove(key);
         _viewCache.Remove(key);
         _opens.Remove(key);
     }
-    //ÒÆ³ý¿ØÖÆÆ÷ÖÐµÄÃæ°åÊÓÍ¼
+    //ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     public void RemoveViewByController(BaseController ctl)
     {
         foreach (var item  in _views)
@@ -71,13 +71,13 @@ public class ViewManager
             }
         }
     }
-    //ÊÇ·ñ¿ªÆôÖÐ
+    //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
     public bool IsOpen(int key)
     {
         return _opens.ContainsKey(key);
     }
 
-    //»ñµÃÄ³¸öÊÓÍ¼
+    //ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Í¼
     public IBaseView GetView(int key)
     {
         if (_opens.ContainsKey(key))
@@ -100,7 +100,7 @@ public class ViewManager
         }
         return null;
     }
-    //Ïú»ÙÊÓÍ¼
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     public void Destroy(int key)
     {
         IBaseView oldView = GetView(key);
@@ -112,10 +112,10 @@ public class ViewManager
         }
     }
 
-    //¹Ø±ÕÃæ°å
+    //ï¿½Ø±ï¿½ï¿½ï¿½ï¿½
     public void Close(int key, params object[] args)
     {
-        //Ã»ÓÐ´ò¿ª
+        //Ã»ï¿½Ð´ï¿½
         if (IsOpen(key) == false)
         {
             return;
@@ -132,15 +132,15 @@ public class ViewManager
     {
         Open((int)viewType, args);
     }
-    //´ò¿ªÄ³¸öÊÓÍ¼Ãæ°å
+    //ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
     public void Open(int key, params object[] args)
     {
         IBaseView view = GetView(key);
         ViewInfo viewInfo = _views[key];
         if (view == null)
         {
-            //²»´æÔÚµÄÊÓÍ¼ ½øÐÐ×ÊÔ´¼ÓÔØ
-            string type = ((ViewType)key).ToString(); // ÀàÐÍµÄ×Ö·û´®¸ú½Å±¾¶ÔÓ¦
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Í¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
+            string type = ((ViewType)key).ToString(); // ï¿½ï¿½ï¿½Íµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½Ó¦
             GameObject uiObj = UnityEngine.Object.Instantiate(Resources.Load($"View/{viewInfo.PrefabName}"), viewInfo.parentTf) as GameObject;
             Canvas canvas = uiObj.GetComponent<Canvas>();
             if (canvas == null)
@@ -151,27 +151,27 @@ public class ViewManager
             {
                 uiObj.AddComponent<GraphicRaycaster>();
             }
-            canvas.overrideSorting = true; //¿ÉÒÔÉèÖÃ²ã¼¶
-            canvas.sortingOrder = viewInfo.sortingOrder; //ÉèÖÃäÖÈ¾²ã¼¶
-            view = uiObj.AddComponent(Type.GetType(type)) as IBaseView;  //Ìí¼Ó¶ÔÓ¦View½Å±¾
+            canvas.overrideSorting = true; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ã¼¶
+            canvas.sortingOrder = viewInfo.sortingOrder; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ã¼¶
+            view = uiObj.AddComponent(Type.GetType(type)) as IBaseView;  //ï¿½ï¿½ï¿½Ó¶ï¿½Ó¦Viewï¿½Å±ï¿½
             view.ViewId = key;
-            view.Controller = viewInfo.controller; //ÉèÖÃ¿ØÖÆÆ÷
-            //Ìí¼Óµ½ÊÓÍ¼»º´æ
+            view.Controller = viewInfo.controller; //ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
             _viewCache.Add(key, view);
             viewInfo.controller.OnLoadView(view);
         }
-        //ÒÑ¾­´ò¿ª
+        //ï¿½Ñ¾ï¿½ï¿½ï¿½
         if (this._opens.ContainsKey(key))
         {
             return;
         }
         this._opens.Add(key, view);
         
-        //ÒÑ¾­³õÊ¼»¯¹ý
+        //ï¿½Ñ¾ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
         if( view.IsInit())
         {
-            view.SetVisible(true); //ÏÔÊ¾
-            view.Open(args); //´ò¿ª
+            view.SetVisible(true); //ï¿½ï¿½Ê¾
+            view.Open(args); //ï¿½ï¿½
             viewInfo.controller.OpenView(view);
         }
         else

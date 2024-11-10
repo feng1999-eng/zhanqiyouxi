@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ÏûÏ¢´¦ÀíÖÐÐÄ½Å±¾
+/// ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½Å±ï¿½
 /// </summary>
 public class MessageCenter
 {
-    private Dictionary<string, System.Action<object>> msgDic; //´æ´¢ÆÕÍ¨µÄÏûÏ¢×Öµä
-    private Dictionary<string, System.Action<object>> tempMsgDic; //´æ´¢ÁÙÊ±µÄÏûÏ¢×Öµä£¬ Ê©ÐÐºóÒÆ³ý
-    private Dictionary<System.Object, Dictionary<string, System.Action<object>>> objMsgDic; //´æ´¢ÌØ¶¨¶ÔÏóµÄÏûÏ¢×Öµä
+    private Dictionary<string, System.Action<object>> msgDic; //ï¿½æ´¢ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Öµï¿½
+    private Dictionary<string, System.Action<object>> tempMsgDic; //ï¿½æ´¢ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Öµä£¬ Ê©ï¿½Ðºï¿½ï¿½Æ³ï¿½
+    private Dictionary<System.Object, Dictionary<string, System.Action<object>>> objMsgDic; //ï¿½æ´¢ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Öµï¿½
 
     public MessageCenter()
     {
@@ -17,7 +17,7 @@ public class MessageCenter
         objMsgDic = new Dictionary<object, Dictionary<string, System.Action<object>>>();
     }
 
-    //Ìí¼ÓÊÂ¼þ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void AddEvent(string eventName, System.Action<object> callback)
     {
         if (msgDic.ContainsKey(eventName))
@@ -30,7 +30,7 @@ public class MessageCenter
         }
     }
 
-    //ÒÆ³ýÊÂ¼þ
+    //ï¿½Æ³ï¿½ï¿½Â¼ï¿½
     public void RemoveEvent(string eventName, System.Action<object> callback)
     {
         if (msgDic.ContainsKey(eventName))
@@ -42,7 +42,7 @@ public class MessageCenter
             }
         }
     }
-    //Ö´ÐÐÊÂ¼þ
+    //Ö´ï¿½ï¿½ï¿½Â¼ï¿½
     public void PostEvent(string eventName, object arg = null)
     {
         if (msgDic.ContainsKey(eventName))
@@ -50,7 +50,7 @@ public class MessageCenter
             msgDic[eventName].Invoke(arg);
         }
     }
-    //Ìí¼Ó¶ÔÏóÊÂ¼þ
+    //ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void AddEvent(System.Object listenerObj, string eventName, System.Action<object> callback)
     {
         if(objMsgDic.ContainsKey(listenerObj))
@@ -72,7 +72,7 @@ public class MessageCenter
         }
     }
 
-    //ÒÆ³ý¶ÔÏóÊÂ¼þ
+    //ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void RemoveEvent(System.Object listenerObj, string eventName, System.Action<object> callback)
     {
         if (objMsgDic.ContainsKey(listenerObj))
@@ -91,7 +91,7 @@ public class MessageCenter
             }
         }
     }
-    //ÒÆ³ý¶ÔÏóµÄËùÓÐÊÂ¼þ
+    //ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void RemoveObjAllEvent(System.Object listenerObj)
     {
         if (objMsgDic.ContainsKey(listenerObj))
@@ -99,7 +99,7 @@ public class MessageCenter
             objMsgDic.Remove(listenerObj);
         }
     }
-    //Ö´ÐÐ¶ÔÏóµÄ¼àÌýÊÂ¼þ
+    //Ö´ï¿½Ð¶ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void PostEvent(System.Object listenerObj, string eventName, System.Object arg = null)
     {
         if(objMsgDic.ContainsKey(listenerObj))

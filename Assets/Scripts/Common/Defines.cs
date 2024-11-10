@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ³£Á¿Àà
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public static class Defines
 {
-    //¿ØÖÆÆ÷Ïà¹ØµÄÊÂ¼þ×Ö·û´®
-    public static readonly string OpenStartView = "OpenStartView"; //´ò¿ª¿ªÊ¼Ãæ°å
-    public static readonly string OpenSetView = "OpenSetView"; //´ò¿ªÉèÖÃÃæ°å
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+    public static readonly string OpenStartView = "OpenStartView"; //ï¿½ò¿ª¿ï¿½Ê¼ï¿½ï¿½ï¿½
+    public static readonly string OpenSetView = "OpenSetView"; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public static readonly string OpenMessageView = "OpenMessageView";
-    public static readonly string LoadingScene = "LoadingScene";//¼ÓÔØ³¡¾°
+    public static readonly string LoadingScene = "LoadingScene";//ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
     public static readonly string OpenSelectLevelView = "OpenSelectLevelView"; //
-
-    //È«¾ÖÊÂ¼þÏà¹Ø
+    //æˆ˜æ–—ç›¸å…³
+    public static readonly string BeginFight = "BeginFight";//å¼€å§‹æˆ˜æ–—
+    
+    //È«ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
     public static readonly string ShowLevelDesEvent = "ShowLevelDesEvent";
     public static readonly string HideLevelDesEvent = "HideLevelDesEvent";
+    
+    public static readonly string OnSelectEvent = "OnSelectEvent";
+    public static readonly string OnUnSelectEvent = "OnUnSelectEvent";
 }
