@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ¿ØÖÆÆ÷ÀàÐÍ
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public enum ControllerType
 {
     GameUI,
     Game,
     Loading,
-    Level
+    Level,
+    Fight
 }

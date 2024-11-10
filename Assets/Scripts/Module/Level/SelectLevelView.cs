@@ -41,6 +41,18 @@ public class SelectLevelView : BaseView
     //切换到战斗场景
     public void onFightBtn()
     {
+        //关闭当前界面
+        GameAPP.ViewManager.Close(ViewId);
+        //摄像机重置位置位置
+        GameAPP.CameraManager.ResetPos();
         
+        LoadingModel loadingModel = new LoadingModel();
+        loadingModel.SceneName = Controller.GetModel<LevelModel>().current.SceneName;
+        loadingModel.callBack = delegate()
+        {
+            //加载成功后显示战斗界面等
+            Controller.ApplyControllerFunc(ControllerType.Fight, Defines.BeginFight);
+        };
+        Controller.ApplyControllerFunc(ControllerType.Loading, Defines.LoadingScene, loadingModel);
     }
 }

@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//ÊÓÍ¼ÀàÐÍÃ¶¾Ù
+//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½
 public enum ViewType
 {
     StartView,
     SetView,
     MessageView,
     LoadingView,
-    SelectLevelView
+    SelectLevelView,
+    FightView,
+    FightSelectHeroView,
+    DragHeroView
 }

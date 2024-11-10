@@ -12,6 +12,11 @@ public class GameAPP : Singleton<GameAPP>
     public static ConfigManager ConfigManager; //配置表
     public static CameraManager CameraManager; //摄像机
     public static MessageCenter MessageCenter; //消息中心
+    public static TimerManager TimerManager;//时间管理中心
+    public static FightWorldManager FightWorldManager;//战斗管理中心
+    public static MapManager MapManager;//地图管理中心
+    public static GameDataManager GameDataManager; //游戏数据管理器
+    public static UserInputManager UserInputManager;//用户输入管理器
     public override void Init()
     {
         SoundManager = new SoundManager();
@@ -20,5 +25,17 @@ public class GameAPP : Singleton<GameAPP>
         ConfigManager = new ConfigManager();
         CameraManager = new CameraManager();
         MessageCenter = new MessageCenter();
+        TimerManager = new TimerManager();
+        FightWorldManager = new FightWorldManager();
+        MapManager = new MapManager();
+        GameDataManager = new GameDataManager();    
+        UserInputManager = new UserInputManager();
+    }
+
+    public override void Update(float dt)
+    {
+        UserInputManager.Update();
+        TimerManager.OnUpdate(dt);
+        FightWorldManager.Update(dt);
     }
 }
