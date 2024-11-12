@@ -16,4 +16,17 @@ public class Hero : ModelBase
         CurHp = MaxHp;
         Type = int.Parse(data["Type"]);
     }
+    
+    //选中
+    protected override void OnSelectCallBack(System.Object arg) 
+    {
+        base.OnSelectCallBack(arg);
+        GameAPP.ViewManager.Open(ViewType.HeroDesView, this);
+    }
+    //未选中
+    protected override void OnUnSelectCallBack(System.Object arg)
+    {
+        base.OnUnSelectCallBack(arg);
+        GameAPP.ViewManager.Close((int)ViewType.HeroDesView);
+    }
 }

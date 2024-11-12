@@ -5,7 +5,8 @@ using UnityEngine;
 public enum GameState
 {
     Idle,
-    Enter
+    Enter,
+    Player
 }
 
 /// <summary>
@@ -57,6 +58,9 @@ public class FightWorldManager
             case GameState.Enter:
                 _current = new FightEnter();
                 break;
+            case GameState.Player:
+                _current = new FightPlayerUnit();
+                break;
         }
 
         _current.Init();
@@ -69,6 +73,13 @@ public class FightWorldManager
         enemies = new List<Enemy>();
         //将场景中的敌人脚本进行存储
         GameObject[] obj = GameObject.FindGameObjectsWithTag("Enemy"); //给怪物添加Enemy标签
+        for (int i = 0; i < obj.Length; i++)
+        {
+            Enemy enemy = obj[i].GetComponent<Enemy>();
+            //当前位置被占用了 要把对应的方法类型设置为障碍物
+            GameAPP.MapManager.ChangeBlockType(enemy.RowIndex, enemy.ColIndex, BlockType.Obstacle);
+            enemies.Add(enemy);
+        }
     }
     //添加英雄
     public void AddHero(Block b, Dictionary<string, string> data)
