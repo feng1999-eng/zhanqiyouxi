@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/Assets/Scripts/MVC/Controller/BaseController.cs" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/MVC/ControllerManager.cs" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/MVC/Model/BaseModel.cs" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/MVC/View/BaseView.cs" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/MVC/ViewManager.cs" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Module/Level/LevelModel.cs" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Module/Level/SelectLevelView.cs" charset="GBK" />
