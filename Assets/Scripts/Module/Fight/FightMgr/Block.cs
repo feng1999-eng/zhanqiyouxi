@@ -23,11 +23,13 @@ public class Block : MonoBehaviour
         dirSp = transform.Find("dir").GetComponent<SpriteRenderer>();
         
         GameAPP.MessageCenter.AddEvent(gameObject, Defines.OnSelectEvent, OnSelectCallBack);
+        GameAPP.MessageCenter.AddEvent(Defines.OnUnSelectEvent, OnUnSelectCallBack);
     }
 
     public void OnDestroy()
     {
         GameAPP.MessageCenter.RemoveEvent(gameObject, Defines.OnSelectEvent, OnSelectCallBack);
+        GameAPP.MessageCenter.RemoveEvent(Defines.OnUnSelectEvent, OnUnSelectCallBack);
     }
     //显示格子
     public void ShowGrid(Color color)
@@ -44,6 +46,11 @@ public class Block : MonoBehaviour
     {
         GameAPP.MessageCenter.PostEvent(Defines.OnUnSelectEvent);
     }
+    //未选中
+    void OnUnSelectCallBack(System.Object arg)
+    {
+      dirSp.sprite = null;   
+    }
     private void OnMouseEnter()
     {
         selectSp.enabled = true;
@@ -57,5 +64,11 @@ public class Block : MonoBehaviour
     private void Start()
     {
         
+    }
+    //设置箭头方向的图片资源 和 颜色
+    public void SetDirSp(Sprite sp, Color color)
+    {
+        dirSp.sprite = sp;
+        dirSp.color = color;
     }
 }

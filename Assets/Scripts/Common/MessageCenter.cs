@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ��Ϣ�������Ľű�
+/// ?????????????
 /// </summary>
 public class MessageCenter
 {
-    private Dictionary<string, System.Action<object>> msgDic; //�洢��ͨ����Ϣ�ֵ�
-    private Dictionary<string, System.Action<object>> tempMsgDic; //�洢��ʱ����Ϣ�ֵ䣬 ʩ�к��Ƴ�
-    private Dictionary<System.Object, Dictionary<string, System.Action<object>>> objMsgDic; //�洢�ض��������Ϣ�ֵ�
+    private Dictionary<string, System.Action<object>> msgDic; //?��???????????
+    private Dictionary<string, System.Action<object>> tempMsgDic; //?��??????????? ??��????
+    private Dictionary<System.Object, Dictionary<string, System.Action<object>>> objMsgDic; //?��??????????????
 
     public MessageCenter()
     {
@@ -17,7 +17,7 @@ public class MessageCenter
         objMsgDic = new Dictionary<object, Dictionary<string, System.Action<object>>>();
     }
 
-    //�����¼�
+    //???????
     public void AddEvent(string eventName, System.Action<object> callback)
     {
         if (msgDic.ContainsKey(eventName))
@@ -30,7 +30,7 @@ public class MessageCenter
         }
     }
 
-    //�Ƴ��¼�
+    //??????
     public void RemoveEvent(string eventName, System.Action<object> callback)
     {
         if (msgDic.ContainsKey(eventName))
@@ -42,7 +42,7 @@ public class MessageCenter
             }
         }
     }
-    //ִ���¼�
+    //??????
     public void PostEvent(string eventName, object arg = null)
     {
         if (msgDic.ContainsKey(eventName))
@@ -50,7 +50,7 @@ public class MessageCenter
             msgDic[eventName].Invoke(arg);
         }
     }
-    //���Ӷ����¼�
+    //??????????
     public void AddEvent(System.Object listenerObj, string eventName, System.Action<object> callback)
     {
         if(objMsgDic.ContainsKey(listenerObj))
@@ -72,7 +72,7 @@ public class MessageCenter
         }
     }
 
-    //�Ƴ������¼�
+    //??????????
     public void RemoveEvent(System.Object listenerObj, string eventName, System.Action<object> callback)
     {
         if (objMsgDic.ContainsKey(listenerObj))
@@ -91,7 +91,7 @@ public class MessageCenter
             }
         }
     }
-    //�Ƴ�����������¼�
+    //???????????????
     public void RemoveObjAllEvent(System.Object listenerObj)
     {
         if (objMsgDic.ContainsKey(listenerObj))
@@ -99,7 +99,7 @@ public class MessageCenter
             objMsgDic.Remove(listenerObj);
         }
     }
-    //ִ�ж���ļ����¼�
+    //??��??????????
     public void PostEvent(System.Object listenerObj, string eventName, System.Object arg = null)
     {
         if(objMsgDic.ContainsKey(listenerObj))

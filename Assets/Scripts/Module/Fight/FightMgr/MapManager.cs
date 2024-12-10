@@ -2,7 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+//格子显示方向的枚举 枚举字符串跟资源图片路径一致
+public enum BlockDirection
+{
+    none = -1,
+    down,
+    horizontal,
+    left,
+    left_down,
+    left_up,
+    right,
+    right_down,
+    right_up,
+    up,
+    vertical,
+    max
+}
 //地图管理器 存储地图网格的信息
 public class MapManager
 {
@@ -11,10 +26,16 @@ public class MapManager
 
     public int RowCount;
     public int ColCount;
-    
+
+    public List<Sprite> dirSpArr;//存储箭头方向图片的集合
     //初始化地图信息
     public void Init()
     {
+        dirSpArr = new List<Sprite>();
+        for (int i = 0; i < (int)BlockDirection.max; i++)
+        {
+            dirSpArr.Add(Resources.Load<Sprite>($"Icon/{(BlockDirection)i}"));
+        }
         tileMap = GameObject.Find("Grid/ground").GetComponent<Tilemap>();
         //地图大小 可以将这个信息写到配置表进行设置
         RowCount = 12;
@@ -45,7 +66,11 @@ public class MapManager
             mapArr[row, col] = b;
         }
     }
-
+    //获取格子位置
+    public Vector3 GetBlockPos(int row, int col)
+    {
+        return mapArr[row, col].transform.position;
+    }
     public BlockType GetBlockType(int row, int col)
     {
         return mapArr[row, col].Type;
@@ -78,5 +103,96 @@ public class MapManager
         {
             mapArr[points[i].RowIndex, points[i].ColIndex].HideGrid();
         }
+    }
+    //根据枚举方向 设置格子的方向图标和颜色
+    public void SetBlockDir(int rowIndex, int colIndex, BlockDirection dir, Color color)
+    {
+        mapArr[rowIndex, colIndex].SetDirSp(dirSpArr[(int)dir], color);
+    }
+    
+    //根据开始点和下一个点计算出方向
+    public BlockDirection GetDirection1(AStarPoint start, AStarPoint next)
+    {
+        int row_offset = next.RowIndex - start.RowIndex;
+        int col_offset = next.ColIndex - start.ColIndex;
+        if (row_offset == 0)
+        {
+            return BlockDirection.horizontal;
+        }else if (col_offset == 0)
+        {
+            return BlockDirection.vertical;
+        }
+
+        return BlockDirection.none;
+    }
+    
+    //根据终点和前一个点计算方向
+    public BlockDirection GetDirection2(AStarPoint end, AStarPoint pre)
+    {
+        Debug.Log(end.RowIndex + " " + pre.RowIndex);
+        Debug.Log(pre.RowIndex + " " + end.RowIndex);
+        int row_offset = end.RowIndex - pre.RowIndex;
+        int col_offset = end.ColIndex - pre.ColIndex;
+        if (row_offset == 0 && col_offset > 0)
+        {
+            return BlockDirection.right;
+        }else if (row_offset == 0 && col_offset < 0)
+        {
+            return BlockDirection.left;
+        }
+        else if (row_offset > 0 && col_offset == 0)
+        {
+            return BlockDirection.up;
+        }
+        else if (row_offset < 0 && col_offset == 0)
+        {
+            return BlockDirection.down;
+        }
+        else
+        {
+            return BlockDirection.none;
+        }
+    }
+    
+    //三个点计算方向
+    public BlockDirection GetDirection3(AStarPoint pre, AStarPoint current, AStarPoint end)
+    {
+        BlockDirection dir = BlockDirection.none;
+        int row_offset_1 = pre.RowIndex - current.RowIndex;
+        int col_offset_1 = pre.ColIndex - current.ColIndex;
+        int row_offset_2 = end.RowIndex - current.RowIndex;
+        int col_offset_2 = end.ColIndex - current.ColIndex;
+        int sum_row_offset = row_offset_1 + row_offset_2;
+        int sum_col_offset = col_offset_1 + col_offset_2;
+
+        if (sum_row_offset == 1 && sum_col_offset == -1)
+        {
+            dir = BlockDirection.left_up;
+        }
+        else if (sum_row_offset == 1 && sum_col_offset == 1)
+        {
+            dir = BlockDirection.right_up;
+        }
+        else if (sum_row_offset == -1 && sum_col_offset == -1)
+        {
+            dir = BlockDirection.left_down;
+        }
+        else if (sum_row_offset == -1 && sum_col_offset == 1)
+        {
+            dir = BlockDirection.right_down;
+        }
+        else
+        {
+            if (row_offset_1 == 0)
+            {
+                dir = BlockDirection.horizontal;
+            }
+            else
+            {
+                dir = BlockDirection.vertical;
+            }
+        }
+
+        return dir;
     }
 }

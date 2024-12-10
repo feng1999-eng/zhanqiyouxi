@@ -6,6 +6,7 @@ public class FightController : BaseController
 {
     public FightController() : base()
     {
+        SetModel(new FightModel(this));//设置战斗数据模型
         GameAPP.ViewManager.Register(ViewType.FightView, new ViewInfo()
         {
             PrefabName = "FightView",
@@ -50,6 +51,10 @@ public class FightController : BaseController
         InitModuleEvent();
     }
 
+    public override void Init()
+    {
+        model.Init();
+    }
     public override void InitModuleEvent()
     {
         RegisterFunc(Defines.BeginFight, onBeginFightCallBack);
