@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
+
 //格子显示方向的枚举 枚举字符串跟资源图片路径一致
 public enum BlockDirection
 {
@@ -194,5 +197,51 @@ public class MapManager
         }
 
         return dir;
+    }
+    
+    //
+    public void ShowAttckStep(ModelBase model, int attackStep, Color color)
+    {
+         int minRow = model.RowIndex - attackStep >= 0 ?model.RowIndex - attackStep : 0;
+         int minCol = model.ColIndex - attackStep >= 0 ? model.ColIndex - attackStep : 0;
+         int maxRow = model.RowIndex+attackStep>RowCount-1?RowCount-1:model.RowIndex+attackStep;
+         int maxCol = model.ColIndex+attackStep>ColCount-1?ColCount-1:model.ColIndex+attackStep;
+
+         for (int row = minRow; row <= maxRow; row++)
+         {
+             for (int col = minCol; col <= maxCol; col++)
+             {
+                 if(Mathf.Abs(model.RowIndex-row)+Mathf.Abs(model.ColIndex-col)<=attackStep)
+                 {
+                     mapArr[row, col].ShowGrid(color);
+                 }
+             }
+         }
+    }
+    
+    public void HideAttackStep(ModelBase model, int attackStep)
+    {
+        int minRow = model.RowIndex - attackStep >= 0 ?model.RowIndex - attackStep : 0;
+        int minCol = model.ColIndex - attackStep >= 0 ? model.ColIndex - attackStep : 0;
+        int maxRow = model.RowIndex+attackStep>RowCount-1?RowCount-1:model.RowIndex+attackStep;
+        int maxCol = model.ColIndex+attackStep>ColCount-1?ColCount-1:model.ColIndex+attackStep;
+
+        for (int row = minRow; row <= maxRow; row++)
+        {
+            for (int col = minCol; col <= maxCol; col++)
+            {
+                if(Mathf.Abs(model.RowIndex-row)+Mathf.Abs(model.ColIndex-col)<=attackStep)
+                {
+                    mapArr[row, col].HideGrid();
+                }
+            }
+        }
+    }
+    
+    //清空
+    public void Clear()
+    {
+        mapArr = null;
+        dirSpArr.Clear();
     }
 }

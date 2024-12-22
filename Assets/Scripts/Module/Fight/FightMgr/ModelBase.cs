@@ -133,4 +133,42 @@ public class ModelBase : MonoBehaviour
     {
         ani.Play(aniName);
     }
+    
+    //受伤
+    public virtual void GetHit(ISkill skill)
+    {
+        
+    }
+    
+    //播放特效
+    public virtual void PlayEffect(string name)
+    {
+        GameObject obj = Instantiate(Resources.Load($"Effect/{name}")) as GameObject;
+        obj.transform.position = transform.position;
+    }
+    
+    //计算两个model的距离(根据行列下标计算)
+    public float GetDis(ModelBase model)
+    {
+        return Mathf.Abs(RowIndex - model.RowIndex) + Mathf.Abs(ColIndex - model.ColIndex);
+    }
+    
+    //播放音效(攻击 受伤)等
+    public void PlaySound(string name)
+    {
+        GameAPP.SoundManager.PlayEffect(name, transform.position);
+    }
+
+    //看向某个model
+    public void LookAtModel(ModelBase model)
+    {
+        if((model.transform.position.x>transform.position.x)&&transform.localScale.x<0)
+        {
+            Filp();
+        }
+        else if((model.transform.position.x<transform.position.x)&&transform.localScale.x>0)
+        {
+            Filp();
+        }
+    }
 }

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ÉùÒô¹ÜÀíÆ÷
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class SoundManager
 {
-    private AudioSource bgmSource; //²¥·ÅbgmµÄÒôÀÖ×é¼þ
-    private Dictionary<string, AudioClip> clips; //ÒôÆµ»º´æ×Öµä
+    private AudioSource bgmSource; //ï¿½ï¿½ï¿½ï¿½bgmï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private Dictionary<string, AudioClip> clips; //ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½
 
-    private bool isStop;// ÊÇ·ñ¾²Òô
+    private bool isStop;// ï¿½Ç·ï¿½ï¿½ï¿½
     public bool IsStop
     {
         get
@@ -29,7 +29,7 @@ public class SoundManager
             }
         }
     }
-    private float bgmVolume; //bgmÒôÁ¿´óÐ¡
+    private float bgmVolume; //bgmï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 
     public float BgmVolume
     {
@@ -44,7 +44,7 @@ public class SoundManager
         }
     }
 
-    private float effectVolume; //ÒôÐ§´óÐ¡(¹¥»÷ ÊÜÉËµÈ¶ÌÒôÐ§)
+    private float effectVolume; //ï¿½ï¿½Ð§ï¿½ï¿½Ð¡(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ËµÈ¶ï¿½ï¿½ï¿½Ð§)
 
     public float EffectVolume
     {
@@ -72,14 +72,30 @@ public class SoundManager
         {
             return;
         }
-        //Ã»ÓÐµ±Ç°ÒôÆµ
+        //Ã»ï¿½Ðµï¿½Ç°ï¿½ï¿½Æµ
         if (clips.ContainsKey(res) == false)
         {
-            //¼ÓÔØÒôÆµ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
             AudioClip clip = Resources.Load<AudioClip>($"Sounds/{res}");
             clips.Add(res, clip);
         }
         bgmSource.clip = clips[res];
         bgmSource.Play();
+    }
+    
+    public void PlayEffect(string name, Vector3 pos)
+    {
+        if (isStop)
+        {
+            return;
+        }
+
+        AudioClip clip = null;
+        if (clips.ContainsKey(name) == false)
+        {
+            clip = Resources.Load<AudioClip>($"Sounds/{name}");
+            clips.Add(name, clip);
+        }
+        AudioSource.PlayClipAtPoint(clips[name], pos);
     }
 }

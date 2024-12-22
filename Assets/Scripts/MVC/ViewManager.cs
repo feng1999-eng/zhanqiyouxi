@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
+using DG.Tweening;
+using System.Linq;
 
 //��ͼ��Ϣ��
 public class ViewInfo
@@ -128,6 +131,15 @@ public class ViewManager
             _views[key].controller.CloseView(view);
         }
     }
+
+    public void CloseAll()
+    {
+        List<IBaseView> list = _opens.Values.ToList();
+        for(int i = list.Count-1;i>=0;i--)
+        {
+            Close(list[i].ViewId);
+        }
+    }
     public void Open(ViewType viewType, params object[] args)
     {
         Open((int)viewType, args);
@@ -181,5 +193,22 @@ public class ViewManager
             view.Open(args);
             viewInfo.controller.OpenView(view);
         }
+    }
+
+    /// <summary>
+    ///显示伤害数字
+    /// </summary>
+    /// <param name="num"></param>
+    /// <param name="color"></param>
+    /// <param name="pos"></param>
+    public void ShowHitNum(string num, Color color, Vector3 pos)
+    {
+        GameObject obj = UnityEngine.Object.Instantiate(Resources.Load("View/HitNum"), worldCanvasTf) as GameObject;
+        obj.transform.position = pos;
+        obj.transform.DOMove(pos + Vector3.up * 1.75f, 0.65f).SetEase(Ease.OutBack);
+        UnityEngine.Object.Destroy(obj, 0.75f);
+        Text hitText = obj.GetComponent<Text>();
+        hitText.text = num;
+        hitText.color = color;
     }
 }

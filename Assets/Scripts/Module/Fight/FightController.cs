@@ -48,6 +48,33 @@ public class FightController : BaseController
             parentTf = GameAPP.ViewManager.canvasTf,
             sortingOrder = 2
         });
+        GameAPP.ViewManager.Register(ViewType.SelectOptionView, new ViewInfo()
+        {
+            PrefabName = "SelectOptionView",
+            controller = this,
+            parentTf = GameAPP.ViewManager.canvasTf,
+        });
+        GameAPP.ViewManager.Register(ViewType.FightOptionDesView, new ViewInfo()
+        {
+            PrefabName = "FightOptionDesView",
+            controller = this,
+            parentTf = GameAPP.ViewManager.canvasTf,
+            sortingOrder = 3
+        });
+        GameAPP.ViewManager.Register(ViewType.WinView, new ViewInfo()
+        {
+            PrefabName = "WinView",
+            controller = this,
+            parentTf = GameAPP.ViewManager.canvasTf,
+            sortingOrder = 3
+        });
+        GameAPP.ViewManager.Register(ViewType.LossView, new ViewInfo()
+        {
+            PrefabName = "LossView",
+            controller = this,
+            parentTf = GameAPP.ViewManager.canvasTf,
+            sortingOrder = 3
+        });
         InitModuleEvent();
     }
 

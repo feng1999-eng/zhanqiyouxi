@@ -45,11 +45,16 @@ public class Block : MonoBehaviour
     private void OnSelectCallBack(System.Object arg)
     {
         GameAPP.MessageCenter.PostEvent(Defines.OnUnSelectEvent);
+        if (GameAPP.CommandManager.IsRunningCommand == false)
+        {
+            GameAPP.ViewManager.Open(ViewType.FightOptionDesView);
+        }
     }
     //未选中
     void OnUnSelectCallBack(System.Object arg)
     {
       dirSp.sprite = null;   
+      GameAPP.ViewManager.Close((int)ViewType.FightOptionDesView);
     }
     private void OnMouseEnter()
     {

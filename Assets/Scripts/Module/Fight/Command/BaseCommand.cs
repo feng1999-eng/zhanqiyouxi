@@ -7,6 +7,10 @@ public class BaseCommand
     public ModelBase model;//命令的对象
     protected bool isFinish;//是否做完标记
 
+    public BaseCommand()
+    {
+        
+    }
     public BaseCommand(ModelBase model)
     {
         this.model = model;
